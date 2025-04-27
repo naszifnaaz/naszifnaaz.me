@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react"
-import { Sparkles, X, Maximize2, Minimize2 } from "lucide-react"
+import { Gamepad2, X, Maximize2, Minimize2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type Game = {
@@ -78,10 +78,10 @@ const EasterEggButton: React.FC = () => {
     <>
       <button
         onClick={handleOpen}
-        className="fixed top-4 left-4 w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center border border-white/10 hover:border-primary/30 transition-all z-40"
+        className="fixed bottom-4 left-4 w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center border border-white/10 hover:border-primary/30 transition-all z-40"
         aria-label="Easter egg"
       >
-        <Sparkles size={16} className="text-primary animate-pulse" />
+        <Gamepad2 size={16} className="text-primary animate-pulse" />
       </button>
 
       {isOpen && (
