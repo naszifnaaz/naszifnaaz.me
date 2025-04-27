@@ -1,79 +1,83 @@
 
-import React, { useState } from "react";
-import { Sparkles, Send, Github } from "lucide-react";
-import { cn } from "@/lib/utils";
+import React, { useState, useEffect } from "react"
+import { Sparkles, X, Maximize2, Minimize2 } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-type Position = {
-  top: string;
-  left: string;
-};
+type Game = {
+  name: string
+  url: string
+  description: string
+}
 
-const getRandomPosition = (): Position => {
-  // Random position between 10% and 90% of viewport
-  const top = `${10 + Math.random() * 80}%`;
-  const left = `${10 + Math.random() * 80}%`;
-  return { top, left };
-};
-
-const puzzles = [
-  { 
-    question: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?", 
-    answer: "echo" 
+const games: Game[] = [
+  {
+    name: "Tapman",
+    url: "https://cdn.htmlgames.com/Tapman/index.html",
+    description: "The classic arcade Pac-Man clone—eat dots, dodge ghosts.",
   },
-  { 
-    question: "The more you take, the more you leave behind. What am I?", 
-    answer: "footsteps" 
+  {
+    name: "Space Invaders",
+    url: "https://cdn.htmlgames.com/AlienInvaders2/index.html",
+    description: "Defend Earth from waves of alien invaders in this retro classic.",
   },
-  { 
-    question: "What has many keys but can't open a single lock?", 
-    answer: "piano" 
+  {
+    name: "Frog Jumper",
+    url: "https://cdn.htmlgames.com/FrogJumper/index.html",
+    description: "Help the frog cross the road and reach its home in this fun arcade game.",
   },
-  { 
-    question: "What gets wet while drying?", 
-    answer: "towel" 
-  },
-  { 
-    question: "What has a head and a tail but no body?", 
-    answer: "coin" 
-  }
-];
+]
 
 const EasterEggButton: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState<Position>(getRandomPosition());
-  const [puzzle, setPuzzle] = useState(puzzles[Math.floor(Math.random() * puzzles.length)]);
-  const [answer, setAnswer] = useState("");
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [game, setGame] = useState<Game>(
+    games[Math.floor(Math.random() * games.length)]
+  )
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [terminalText, setTerminalText] = useState<string[]>([])
+
+  useEffect(() => {
+    if (!isOpen) return
+    const lines = [
+      "$ connecting to arcade server...",
+      "$ establishing secure connection...",
+      `$ loading ${game.name}...`,
+      "$ initializing game environment...",
+      `$ ready! enjoy ${game.name}!`,
+    ]
+    let idx = 0
+    const iv = setInterval(() => {
+      if (idx < lines.length) {
+        setTerminalText((p) => [...p, lines[idx]])
+        idx++
+      } else {
+        clearInterval(iv)
+        setTimeout(() => setIsLoading(false), 500)
+      }
+    }, 300)
+    return () => clearInterval(iv)
+  }, [isOpen, game.name])
 
   const handleOpen = () => {
-    // Set a new random position each time
-    setPosition(getRandomPosition());
-    setPuzzle(puzzles[Math.floor(Math.random() * puzzles.length)]);
-    setAnswer("");
-    setIsCorrect(null);
-    setIsOpen(true);
-  };
+    setGame(games[Math.floor(Math.random() * games.length)])
+    setIsLoading(true)
+    setTerminalText([])
+    setIsOpen(true)
+    // reset fullscreen
+    setIsFullscreen(false)
+  }
 
   const handleClose = () => {
-    setIsOpen(false);
-  };
+    setIsOpen(false)
+    setIsFullscreen(false)
+  }
 
-  const checkAnswer = () => {
-    if (answer.toLowerCase().trim() === puzzle.answer.toLowerCase()) {
-      setIsCorrect(true);
-    } else {
-      setIsCorrect(false);
-    }
-  };
-
-  const visitGithub = () => {
-    window.open("https://github.com/naszifnaaz", "_blank");
-  };
+  const toggleFullscreen = () => setIsFullscreen((f) => !f)
 
   return (
     <>
-      <button 
-        onClick={handleOpen} 
+      <button
+        onClick={handleOpen}
         className="fixed top-4 left-4 w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center border border-white/10 hover:border-primary/30 transition-all z-40"
         aria-label="Easter egg"
       >
@@ -82,77 +86,82 @@ const EasterEggButton: React.FC = () => {
 
       {isOpen && (
         <>
-          {/* Overlay */}
-          <div 
+          <div
             className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
             onClick={handleClose}
-          ></div>
-          
-          {/* Puzzle modal */}
-          <div 
-            className="fixed z-50 w-80 glass p-4 rounded-xl shadow-xl"
-            style={{ 
-              top: position.top, 
-              left: position.left, 
-              transform: 'translate(-50%, -50%)' 
-            }}
+          />
+
+          <div
+            className={cn(
+              "fixed z-50 bg-black border border-primary/30 rounded-lg shadow-xl overflow-hidden transition-all flex flex-col",
+              isFullscreen
+                ? "inset-0"
+                : "w-[90vw] max-w-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            )}
           >
-            <div className="flex justify-between items-center mb-3">
+            {/* Header */}
+            <div className="bg-gray-900 px-4 py-2 flex justify-between items-center border-b border-primary/20">
               <div className="flex items-center gap-2">
-                <span className="text-primary text-xl">✨</span>
-                <h3 className="font-semibold">Puzzle Time!</h3>
+                <div className="flex gap-1.5">
+                  <div
+                    className="w-3 h-3 bg-red-500 rounded-full cursor-pointer"
+                    onClick={handleClose}
+                  />
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+                  <div
+                    className="w-3 h-3 bg-green-500 rounded-full cursor-pointer"
+                    onClick={toggleFullscreen}
+                  />
+                </div>
+                <span className="text-white/70 text-sm ml-2">
+                  arcade@portfolio ~ {game.name}
+                </span>
               </div>
-              <button 
-                onClick={handleClose}
-                className="text-white/50 hover:text-white"
-              >
-                ✕
-              </button>
-            </div>
-            
-            <p className="text-sm mb-4">{puzzle.question}</p>
-            
-            {isCorrect === true ? (
-              <div className="text-center py-4">
-                <p className="text-green-400 text-lg mb-3">🎉 You got it right!</p>
-                <button 
-                  onClick={visitGithub} 
-                  className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full inline-flex items-center gap-2"
-                >
-                  <Github size={16} />
-                  Visit GitHub
+              <div className="flex gap-2">
+                <button onClick={toggleFullscreen} className="text-white/50 hover:text-white">
+                  {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
                 </button>
+                <button onClick={handleClose} className="text-white/50 hover:text-white">
+                  <X size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* Loading vs. Game */}
+            {isLoading ? (
+              <div className="p-4 font-mono text-sm text-green-400 bg-black h-[60vh] overflow-auto">
+                {terminalText.map((line, i) => (
+                  <div key={i} className="mb-1">
+                    {line}
+                    {i === terminalText.length - 1 && <span className="animate-pulse">_</span>}
+                  </div>
+                ))}
               </div>
             ) : (
-              <div className="flex gap-2">
-                <input 
-                  type="text" 
-                  value={answer} 
-                  onChange={(e) => setAnswer(e.target.value)}
-                  placeholder="Your answer..."
+              <div className={cn("w-full overflow-hidden", isFullscreen && "flex-1")}>  
+                <iframe
+                  src={game.url}
                   className={cn(
-                    "flex-1 bg-white/5 border border-white/10 px-3 py-2 rounded-full text-sm placeholder:text-white/30",
-                    isCorrect === false && "border-red-500/50",
+                    "w-full border-none",
+                    isFullscreen ? "h-full" : "h-[550px]"
                   )}
-                  onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+                  scrolling="no"
+                  title={game.name}
+                  loading="lazy"
                 />
-                <button 
-                  onClick={checkAnswer} 
-                  className="bg-primary hover:bg-primary/90 w-10 h-10 rounded-full flex items-center justify-center"
-                >
-                  <Send size={16} className="text-white" />
-                </button>
               </div>
             )}
-            
-            {isCorrect === false && (
-              <p className="text-red-400 text-xs mt-2">That's not quite it. Try again!</p>
-            )}
+
+            {/* Footer */}
+            <div className="bg-gray-900 p-2 border-t border-primary/20 text-xs text-white/50">
+              <p>{game.description}</p>
+              <p className="mt-1">Press ESC or click the red button to exit.</p>
+            </div>
           </div>
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default EasterEggButton;
+export default EasterEggButton
