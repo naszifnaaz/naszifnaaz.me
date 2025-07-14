@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar, Code, ExternalLink, Github, ChevronRight } from "lucide-react";
+import { Calendar, Code, ChevronRight } from "lucide-react";
 import RevealOnScroll from "./RevealOnScroll";
 import Modal from "./Modal";
 import { experiences, projects } from "@/data/portfolioData";
@@ -16,7 +16,7 @@ const ExperienceSection: React.FC = () => {
   };
 
   // Filter company projects
-  const companyProjects = projects.filter(p => p.isCompanyProject);
+  const companyProjects = projects.filter((p) => p.isCompanyProject);
 
   return (
     <section id="experience" className="py-20 px-4">
@@ -27,34 +27,46 @@ const ExperienceSection: React.FC = () => {
             <span className="wave-underline"></span>
           </h2>
         </RevealOnScroll>
-        
+
         <div className="space-y-12">
           {experiences.map((experience, index) => (
             <RevealOnScroll key={index} delay={index * 100}>
               <div className="glass p-6 relative">
-                <div 
+                <div
                   className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary cursor-pointer hover:ring-4 ring-primary/20 transition-all"
-                  onClick={() => openModal(index)}
                   role="button"
                   aria-label={`View details for ${experience.role} at ${experience.company}`}
                 ></div>
-                
+
                 <div className="flex items-center text-white/70 mb-3 text-sm">
-                <span className="font-medium">{experience.role}</span>
-                <span className="mx-2">•</span>
-                  <span className="font-medium">{experience.company}</span>
+                  <img
+                    className="w-10 mr-3 rounded-full"
+                    src={experience.logo}
+                  />
+                  <span className="font-bold text-white">
+                    {experience.company}
+                  </span>
+                  <span className="mx-2">•</span>
+                  <span className="font-bold text-white">
+                    {experience.role}
+                  </span>
                   <span className="mx-2">•</span>
                   <div className="flex items-center">
                     <Calendar size={14} className="mr-1" />
                     <span>{experience.duration}</span>
                   </div>
                 </div>
-                
-                <p className="text-white/80 text-sm mb-3">{experience.description}</p>
-                
+
+                <p className="text-white/80 text-sm mb-3">
+                  {experience.description}
+                </p>
+
                 <div className="flex flex-wrap gap-2">
                   {experience.stack.slice(0, 4).map((tech, techIndex) => (
-                    <span key={techIndex} className="tech-chip text-xs py-1 px-2">
+                    <span
+                      key={techIndex}
+                      className="tech-chip text-xs py-1 px-2"
+                    >
                       <Code size={12} className="text-primary mr-1" />
                       {tech}
                     </span>
@@ -65,12 +77,18 @@ const ExperienceSection: React.FC = () => {
                     </span>
                   )}
                 </div>
-                
+
                 {/* Company Projects */}
-                <h4 className="text-lg font-semibold mt-6 mb-4">Notable Projects</h4>
+                {experience.projects.length != 0 ? (
+                  <h4 className="text-lg font-semibold mt-6 mb-4">Projects</h4>
+                ) : null}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {companyProjects.map((project, pIndex) => (
-                    <div key={pIndex} className="bg-black/20 rounded-lg p-4 hover:bg-black/30 transition-all">
+                  {experience.projects.map((project, pIndex) => (
+                    <div
+                      key={pIndex}
+                      className="bg-black/20 rounded-lg p-4 hover:bg-black/30 transition-all"
+                    >
                       <div className="flex justify-between items-start mb-2">
                         <h5 className="text-base font-semibold flex items-center gap-2">
                           <div className="bg-primary/20 p-1.5 rounded-full">
@@ -86,7 +104,9 @@ const ExperienceSection: React.FC = () => {
                           <ChevronRight size={12} className="ml-1" />
                         </button>
                       </div>
-                      <p className="text-sm text-white/70 mb-2">{project.summary}</p>
+                      <p className="text-sm text-white/70 mb-2">
+                        {project.summary}
+                      </p>
                       <div className="flex flex-wrap gap-2">
                         {project.stack.slice(0, 3).map((tech, tIndex) => (
                           <span key={tIndex} className="tech-chip text-xs">
@@ -108,7 +128,7 @@ const ExperienceSection: React.FC = () => {
           ))}
         </div>
       </div>
-      
+
       {/* Project Details Modal */}
       {selectedProject !== null && companyProjects[selectedProject] && (
         <Modal
@@ -123,21 +143,25 @@ const ExperienceSection: React.FC = () => {
                 {companyProjects[selectedProject].name}
               </span>
             </div>
-            
+
             <div>
-              <h3 className="text-lg font-semibold mb-2">Problem Statement</h3>
               <p className="text-white/80">
-                {companyProjects[selectedProject].problemStatement}
+                {companyProjects[selectedProject].summary}
               </p>
             </div>
-            
+
             <div>
-              <h3 className="text-lg font-semibold mb-2">My Contribution</h3>
-              <p className="text-white/80">
-                {companyProjects[selectedProject].myContribution}
-              </p>
+              <h3 className="text-lg font-semibold mb-2">Key Features</h3>
+              <ul className="space-y-2">
+                {companyProjects[selectedProject].description.map((desc, i) => (
+                  <li key={i} className="flex items-start">
+                    <span className="text-primary mr-2">•</span>
+                    <span className="text-white/80">{desc}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            
+
             <div>
               <h3 className="text-lg font-semibold mb-2">Key Features</h3>
               <ul className="space-y-2">
@@ -149,7 +173,7 @@ const ExperienceSection: React.FC = () => {
                 ))}
               </ul>
             </div>
-            
+
             <div>
               <h3 className="text-lg font-semibold mb-2">Tech Stack</h3>
               <div className="flex flex-wrap gap-2">

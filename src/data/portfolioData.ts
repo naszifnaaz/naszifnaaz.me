@@ -13,6 +13,7 @@ export interface Experience {
   details: string[];
   stack: string[];
   logo: string;
+  projects: Project[];
 }
 
 export interface Project {
@@ -50,86 +51,340 @@ export const aboutMe = {
   phone: "80754 36081",
   email: "naszifnaaz@gmail.com",
   location: "Bengaluru, India",
-  summary: "Full-stack web developer with 3 years of experience building production-ready applications using the MERN stack. Proficient in modern frameworks like Next.js and TypeScript , with a strong focus on AI integration and end-to-end feature delivery.",
+  summary:
+    "Full-stack web developer with 3 years of experience building production-ready applications using the MERN stack. Proficient in modern frameworks like Next.js and TypeScript , with a strong focus on AI integration and end-to-end feature delivery.",
   funFacts: [
     {
-      icon: "code", 
-      title: "3 Years", 
-      description: "Building production web apps"
+      icon: "code",
+      title: "3 Years",
+      description: "Building production web apps",
     },
     {
-      icon: "zap", 
-      title: "MERN + Next.js", 
-      description: "Full-stack expertise"
+      icon: "zap",
+      title: "MERN + Next.js",
+      description: "Full-stack expertise",
     },
     {
-      icon: "rocket", 
-      title: "AI Integration", 
-      description: "Expert in modern AI tooling"
+      icon: "rocket",
+      title: "AI Integration",
+      description: "Expert in modern AI tooling",
     },
     {
-      icon: "users", 
-      title: "Team Player", 
-      description: "Cross-functional collaboration"
-    }
+      icon: "users",
+      title: "Team Player",
+      description: "Cross-functional collaboration",
+    },
   ],
   socialLinks: {
     github: "https://github.com/naszifnaaz",
     linkedin: "https://www.linkedin.com/in/nasifnaaz",
-    twitter: "https://x.com/naszifnaaz"
-  }
+    twitter: "https://x.com/naszifnaaz",
+  },
 };
 
 export const skills: Skill[] = [
   // Frontend Skills
-  { name: "React", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react.png", category: "frontend", proficiency: "Expert" },
-  { name: "Next.js", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/next_js.png", category: "frontend", proficiency: "Expert" },
-  { name: "TypeScript", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/typescript.png", category: "frontend", proficiency: "Advanced" },
-  { name: "JavaScript", icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/javascript.png", category: "frontend", proficiency: "Expert" },
-  { name: "Redux", icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/redux.png", category: "frontend", proficiency: "Advanced" },
-  { name: "Tailwind CSS", icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/tailwind_css.png", category: "frontend", proficiency: "Expert" },
-  { name: "Material UI", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/material_ui.png", category: "frontend", proficiency: "Intermediate" },
-  { name: "Chakra UI", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/chakra_ui.png", category: "frontend", proficiency: "Intermediate" },
-  { name: "Ant Design", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/ant_design.png", category: "frontend", proficiency: "Intermediate" },
-  
+  {
+    name: "React",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react.png",
+    category: "frontend",
+    proficiency: "Expert",
+  },
+  {
+    name: "Next.js",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/next_js.png",
+    category: "frontend",
+    proficiency: "Expert",
+  },
+  {
+    name: "TypeScript",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/typescript.png",
+    category: "frontend",
+    proficiency: "Advanced",
+  },
+  {
+    name: "JavaScript",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/javascript.png",
+    category: "frontend",
+    proficiency: "Expert",
+  },
+  {
+    name: "Redux",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/redux.png",
+    category: "frontend",
+    proficiency: "Advanced",
+  },
+  {
+    name: "Tailwind CSS",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/tailwind_css.png",
+    category: "frontend",
+    proficiency: "Expert",
+  },
+  {
+    name: "Material UI",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/material_ui.png",
+    category: "frontend",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "Chakra UI",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/chakra_ui.png",
+    category: "frontend",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "Ant Design",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/ant_design.png",
+    category: "frontend",
+    proficiency: "Intermediate",
+  },
+
   // Backend Skills
-  { name: "Node.js", icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/node_js.png", category: "backend", proficiency: "Expert" },
-  { name: "Express", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/express.png", category: "backend", proficiency: "Expert" },
-  { name: "Python", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/python.png", category: "backend", proficiency: "Intermediate" },
-  
+  {
+    name: "Node.js",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/node_js.png",
+    category: "backend",
+    proficiency: "Expert",
+  },
+  {
+    name: "Express",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/express.png",
+    category: "backend",
+    proficiency: "Expert",
+  },
+  {
+    name: "Python",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/python.png",
+    category: "backend",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "Bun",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/bun_js.png",
+    category: "backend",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "REST API",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/rest.png",
+    category: "backend",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "GraphQL",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/graphql.png",
+    category: "backend",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "WebSocket",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/websocket.png",
+    category: "backend",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "gRPC",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/grpc.png",
+    category: "backend",
+    proficiency: "Intermediate",
+  },
+
   // Database Skills
-  { name: "MongoDB", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/mongodb.png", category: "database", proficiency: "Expert" },
-  { name: "PostgreSQL", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/postgresql.png", category: "database", proficiency: "Advanced" },
-  { name: "Firebase", icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/firebase.png", category: "database", proficiency: "Advanced" },
-  { name: "Redis", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/redis.png", category: "database", proficiency: "Intermediate" },
-  
+  {
+    name: "MongoDB",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/mongodb.png",
+    category: "database",
+    proficiency: "Expert",
+  },
+  {
+    name: "PostgreSQL",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/postgresql.png",
+    category: "database",
+    proficiency: "Advanced",
+  },
+  {
+    name: "Firebase",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/firebase.png",
+    category: "database",
+    proficiency: "Advanced",
+  },
+  {
+    name: "Redis",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/redis.png",
+    category: "database",
+    proficiency: "Intermediate",
+  },
+
   // DevOps Skills
-  { name: "AWS", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/aws.png", category: "devops", proficiency: "Intermediate" },
-  { name: "Git", icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/git.png", category: "devops", proficiency: "Advanced" },
-  
+  {
+    name: "AWS",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/aws.png",
+    category: "devops",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "Git",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/git.png",
+    category: "devops",
+    proficiency: "Advanced",
+  },
+  {
+    name: "Docker",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/docker.png",
+    category: "devops",
+    proficiency: "Advanced",
+  },
+
   // Tools
-  { name: "Figma", icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/figma.png", category: "tools", proficiency: "Intermediate" },
-  { name: "Postman", icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/postman.png", category: "tools", proficiency: "Advanced" },
-  { name: "Jira", icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/jira.png", category: "tools", proficiency: "Intermediate" },
+  {
+    name: "Figma",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/figma.png",
+    category: "tools",
+    proficiency: "Intermediate",
+  },
+  {
+    name: "Postman",
+    icon: "	https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/postman.png",
+    category: "tools",
+    proficiency: "Advanced",
+  },
+  {
+    name: "Jira",
+    icon: "https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/jira.png",
+    category: "tools",
+    proficiency: "Intermediate",
+  },
 ];
 
 export const experiences: Experience[] = [
   {
+    company: "Wissen",
+    role: "Software Engineer",
+    duration: "May 2025 – Present",
+    description: "Developing high-impact solutions for Flipkart.",
+    details: [],
+    stack: [
+      "React",
+      "Java",
+      "REST API",
+      "GraphQL",
+      "WebSocket",
+      "gRPC",
+      "Docker",
+    ],
+    logo: "https://media.licdn.com/dms/image/v2/D4D0BAQEUGPCnR9sT7g/company-logo_200_200/company-logo_200_200/0/1736152842225/wissen_technology_logo?e=2147483647&v=beta&t=E8KZVlGg5ezYCEY6jDm9qtbJ2EV6azghnLv0-wh38WU",
+    projects: [],
+  },
+  {
     company: "Masai",
     role: "Full-Stack Developer",
-    duration: "April 2022 – Present",
-    description: "Built and maintained core platforms for an edtech startup used by thousands of students and staff.",
+    duration: "April 2022 – April 2025",
+    description:
+      "Built and maintained core platforms for an edtech startup used by thousands of students and staff.",
     details: [
       "Led development of AI-powered interview platform with real-time feedback and analytics",
       "Created in-house assessment platform replacing third-party tools like HackerRank",
       "Developed proctoring system with real-time behavior monitoring via AWS Rekognition",
       "Optimized MongoDB queries and implemented Redis caching for 40% faster response times",
-      "Mentored junior developers and conducted code reviews to maintain code quality"
+      "Mentored junior developers and conducted code reviews to maintain code quality",
     ],
     stack: ["Next.js", "MongoDB", "OpenAI API", "Redis", "AWS", "Socket.io"],
-    logo: "/images/companies/masai.png"
+    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkoVbbdBHy0NA8Yj7ZIsW6NfW2NrI46Nmf6A&s",
+    projects: [
+      {
+        name: "LevelUp",
+        summary: "AI-powered interview platform with real-time feedback",
+        description: [
+          "Designed and refined prompt-engineering strategies and interview-flow architecture",
+          "Integrated features such as speech-to-text transcription, timed responses, adaptive follow-ups",
+          "Developed custom interactive dashboards for interview analytics using Chart.js and Framer Motion",
+        ],
+        stack: [
+          "Next.js",
+          "MongoDB",
+          "Web Sockets",
+          "OpenAI API",
+          "Redis",
+          "AWS",
+        ],
+        features: [
+          "Real-time interview feedback",
+          "Speech-to-text transcription",
+          "Adaptive follow-up questions",
+          "Interactive analytics dashboard",
+        ],
+        challenges: [
+          "Complex prompt engineering",
+          "Real-time audio processing",
+          "Scalable WebSocket architecture",
+        ],
+        image: "/images/projects/levelup.jpg",
+        isCompanyProject: true,
+      },
+      {
+        name: "Assess",
+        summary: "In-house test creation and assessment platform",
+        description: [
+          "Replaced third-party assessment tools (Mettl, HackerRank) with an in-house platform",
+          "Integrated seamlessly with the existing LMS for MCQs, coding challenges, and DSA questions",
+          "Built an intuitive quiz-creation dashboard with drag-and-drop, code-splitting, and lazy loading",
+        ],
+        stack: [
+          "React.js",
+          "Node.js",
+          "MongoDB",
+          "Judge0",
+          "Monaco Editor",
+          "AWS",
+          "Redis",
+          "Firebase",
+        ],
+        features: [
+          "MCQ and coding assessments",
+          "Drag-and-drop quiz creation",
+          "Code editor integration",
+          "Real-time test monitoring",
+        ],
+        challenges: [
+          "Complex test validation",
+          "Code execution sandboxing",
+          "Large-scale concurrent testing",
+        ],
+        image: "/images/projects/assess.jpg",
+        isCompanyProject: true,
+      },
+      {
+        name: "Copper",
+        summary: "Advanced proctoring system with AI-powered monitoring",
+        description: [
+          "Led the video-recognition component using AWS Rekognition for real-time behavior analysis",
+          "Implemented tab-tracking alerts and audio/video capture to ensure test integrity",
+        ],
+        stack: [
+          "React.js",
+          "Node.js",
+          "MongoDB",
+          "OpenAI API",
+          "MOSS",
+          "AWS Rekognition",
+          "Web Sockets",
+        ],
+        features: [
+          "Real-time behavior monitoring",
+          "Tab tracking and alerts",
+          "Audio/video proctoring",
+          "Plagiarism detection",
+        ],
+        challenges: [
+          "Real-time video processing",
+          "Browser security measures",
+          "Privacy compliance",
+        ],
+        image: "/images/projects/copper.jpg",
+        isCompanyProject: true,
+      },
+    ],
   },
-  
 ];
 
 export const education: Education[] = [
@@ -137,14 +392,14 @@ export const education: Education[] = [
     institution: "Acharya Institute of Technology",
     degree: "B.E. in Computer Science",
     year: "2021",
-    logo: "/images/education/acharya.png"
+    logo: "/images/education/acharya.png",
   },
   {
     institution: "Marygiri Senior Secondary, School",
     degree: "12th Grade (Science)",
     year: "2017",
-    logo: "/images/education/stjosephs.png"
-  }
+    logo: "/images/education/stjosephs.png",
+  },
 ];
 
 export const certifications: Certification[] = [
@@ -152,8 +407,8 @@ export const certifications: Certification[] = [
     name: "Full-Stack Web Development",
     issuer: "National Skill Development Corporation (NSDC)",
     year: "2022",
-    logo: "/images/certifications/nsdc.png"
-  }
+    logo: "/images/certifications/nsdc.png",
+  },
 ];
 
 export const projects: Project[] = [
@@ -163,22 +418,22 @@ export const projects: Project[] = [
     description: [
       "Designed and refined prompt-engineering strategies and interview-flow architecture",
       "Integrated features such as speech-to-text transcription, timed responses, adaptive follow-ups",
-      "Developed custom interactive dashboards for interview analytics using Chart.js and Framer Motion"
+      "Developed custom interactive dashboards for interview analytics using Chart.js and Framer Motion",
     ],
     stack: ["Next.js", "MongoDB", "Web Sockets", "OpenAI API", "Redis", "AWS"],
     features: [
       "Real-time interview feedback",
       "Speech-to-text transcription",
       "Adaptive follow-up questions",
-      "Interactive analytics dashboard"
+      "Interactive analytics dashboard",
     ],
     challenges: [
       "Complex prompt engineering",
       "Real-time audio processing",
-      "Scalable WebSocket architecture"
+      "Scalable WebSocket architecture",
     ],
     image: "/images/projects/levelup.jpg",
-    isCompanyProject: true
+    isCompanyProject: true,
   },
   {
     name: "Assess",
@@ -186,44 +441,61 @@ export const projects: Project[] = [
     description: [
       "Replaced third-party assessment tools (Mettl, HackerRank) with an in-house platform",
       "Integrated seamlessly with the existing LMS for MCQs, coding challenges, and DSA questions",
-      "Built an intuitive quiz-creation dashboard with drag-and-drop, code-splitting, and lazy loading"
+      "Built an intuitive quiz-creation dashboard with drag-and-drop, code-splitting, and lazy loading",
     ],
-    stack: ["React.js", "Node.js", "MongoDB", "Judge0", "Monaco Editor", "AWS", "Redis", "Firebase"],
+    stack: [
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "Judge0",
+      "Monaco Editor",
+      "AWS",
+      "Redis",
+      "Firebase",
+    ],
     features: [
       "MCQ and coding assessments",
       "Drag-and-drop quiz creation",
       "Code editor integration",
-      "Real-time test monitoring"
+      "Real-time test monitoring",
     ],
     challenges: [
       "Complex test validation",
       "Code execution sandboxing",
-      "Large-scale concurrent testing"
+      "Large-scale concurrent testing",
     ],
     image: "/images/projects/assess.jpg",
-    isCompanyProject: true
+    isCompanyProject: true,
   },
   {
     name: "Copper",
     summary: "Advanced proctoring system with AI-powered monitoring",
     description: [
       "Led the video-recognition component using AWS Rekognition for real-time behavior analysis",
-      "Implemented tab-tracking alerts and audio/video capture to ensure test integrity"
+      "Implemented tab-tracking alerts and audio/video capture to ensure test integrity",
     ],
-    stack: ["React.js", "Node.js", "MongoDB", "OpenAI API", "MOSS", "AWS Rekognition", "Web Sockets"],
+    stack: [
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "OpenAI API",
+      "MOSS",
+      "AWS Rekognition",
+      "Web Sockets",
+    ],
     features: [
       "Real-time behavior monitoring",
       "Tab tracking and alerts",
       "Audio/video proctoring",
-      "Plagiarism detection"
+      "Plagiarism detection",
     ],
     challenges: [
       "Real-time video processing",
       "Browser security measures",
-      "Privacy compliance"
+      "Privacy compliance",
     ],
     image: "/images/projects/copper.jpg",
-    isCompanyProject: true
+    isCompanyProject: true,
   },
   {
     name: "Ping",
@@ -231,7 +503,7 @@ export const projects: Project[] = [
     description: [
       "Real-time chat application with one-to-one and group messaging capabilities",
       "Features presence indicators, typing status, and read receipts",
-      "Integrated with Firebase for message persistence and real-time updates"
+      "Integrated with Firebase for message persistence and real-time updates",
     ],
     stack: ["React", "Node.js", "Socket.IO", "Firebase"],
     features: [
@@ -240,38 +512,38 @@ export const projects: Project[] = [
       "Push notifications and activity status tracking",
       "Group chat creation and management",
       "Real-time message synchronization",
-      "Read receipts and message status"
+      "Read receipts and message status",
     ],
     challenges: [
       "Implementing real-time presence system",
       "Managing complex state for multiple chat rooms",
-      "Optimizing performance for large message histories"
+      "Optimizing performance for large message histories",
     ],
     image: "/images/projects/ping.jpg",
     link: "https://ping-chat.demo.com",
-    githubLink: "https://github.com/username/ping"
+    githubLink: "https://github.com/username/ping",
   },
   {
     name: "Quizzle",
-    summary: "SaaS platform for creating and participating in real-time quizzes",
+    summary:
+      "SaaS platform for creating and participating in real-time quizzes",
     description: [
       "Web-based platform for creating, publishing, and participating in real-time quizzes",
       "Features live scoreboards, admin analytics, and unique quiz links",
-      "Built with MERN stack and WebSockets for real-time functionality"
+      "Built with MERN stack and WebSockets for real-time functionality",
     ],
     stack: ["MongoDB", "Express", "React", "Node.js", "WebSockets"],
     features: [
       "Real-time submission tracking and scoreboard updates",
       "Admin dashboard for question management and analytics",
-      "JWT authentication and role-based access control"
+      "JWT authentication and role-based access control",
     ],
     challenges: [
       "Implementing concurrent user management for live quizzes",
       "Building a responsive UI that works well on all devices",
-      "Ensuring data consistency during real-time updates"
+      "Ensuring data consistency during real-time updates",
     ],
     image: "/images/projects/quizzle.jpg",
-    githubLink: "https://github.com/username/quizzle"
-  }
+    githubLink: "https://github.com/username/quizzle",
+  },
 ];
-
